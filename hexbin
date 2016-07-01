@@ -1,6 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
+int todec(char *p,int jin)
+{
+    int num=0,count=0,i=0,num1=1,i1=0;
+    while (*p != '\0')
+		{
+			p++;
+			count++;
+		}
+		p--;
+		while (count != 0)
+		{
+			while(i1<i)
+            {
+                num1*=jin;
+                i1++;
+            }
+			i++;
+			num += (*p - 48)*num1;
+			p--;
+			count--;
+		}
+		return num;
+}
 
+void binandoct(int a,int b)
+{
+    int num1, num2, recorde[100], i = 0;
+	num1 = 0;
+	num2 = a;
+	do
+	{
+		num1 = num2 % b;
+		num2 = num2 / b;
+		recorde[i] = num1;
+		i++;
+	} while (num2);
+	i--;
+	while (i >= 0)
+	{
+		printf("%d", recorde[i]);
+		i--;
+	}
+}
 
 int tonum(char *p, int choice)
 {
@@ -8,67 +50,13 @@ int tonum(char *p, int choice)
 	switch (choice)
 	{
 	case 1:
-		while (*p != '\0')
-		{
-			p++;
-			count++;
-		}
-		p--;
-		while (count != 0)
-		{
-			num1 = (int)pow(10, i);
-			i++;
-			num += (*p - 48)*num1;
-			p--;
-			count--;
-		}
-		return num;
+		return todec(p,10);
 		break;
 	case 2:
-		while (*p != '\0')
-		{
-			p++;
-			count++;
-		}
-		p--;
-		while (count != 0)
-		{
-			num1 = 1;
-			i1 = 0;
-			while (i1<i)
-			{
-				num1 *= 2;
-				i1++;
-			}
-			i++;
-			num += (*p - 48)*num1;
-			p--;
-			count--;
-		}
-		return num;
+		return todec(p,2);
 		break;
 	case 3:
-		while (*p != '\0')
-		{
-			p++;
-			count++;
-		}
-		p--;
-		while (count != 0)
-		{
-			num1 = 1;
-			i1 = 0;
-			while (i1<i)
-			{
-				num1 *= 8;
-				i1++;
-			}
-			i++;
-			num += (*p - 48)*num1;
-			p--;
-			count--;
-		}
-		return num;
+		return todec(p,8);
 		break;
 	case 4:
 		while (*p != '\0')
@@ -107,44 +95,19 @@ int tonum(char *p, int choice)
 		break;
 	}
 }
+
+
 int toany(int a)
 {
+    int num1, num2,recorde[100], i = 0;
     char hex[100];
-	int num1, num2, num3, recorde[100], i = 0;
-	num1 = num3 = 0;
-	num2 = a;
-	do
-	{
-		num1 = num2 % 2;
-		num2 = num2 / 2;
-		recorde[i] = num1;
-		i++;
-	} while (num2);
-	i--;
-	while (i >= 0)
-	{
-		printf("%d", recorde[i]);
-		i--;
-	}
-	printf("\n-----------------\n");
-	num1 = num3 = 0;
-	i = 0;
-	num2 = a;
-	do
-	{
-		num1 = num2 % 8;
-		num2 = num2 / 8;
-		recorde[i] = num1;
-		i++;
-	} while (num2);
-	i--;
-	while (i >= 0)
-	{
-		printf("%d", recorde[i]);
-		i--;
-	}
-    printf("\n-------------------------\n");
-    num1 = num3 = 0;
+    printf("二进制为:");
+	binandoct(a,2);
+	printf("\n---------------\n");
+	printf("八进制为:");
+	binandoct(a,8);
+    printf("\n---------------\n");
+    num1 = 0;
 	i = 0;
 	num2 = a;
 	do
@@ -158,6 +121,7 @@ int toany(int a)
 		i++;
 	} while (num2);
 	i--;
+	printf("十六进制为:");
 	while (i >= 0)
 	{
 		printf("%c", hex[i]);
@@ -165,6 +129,7 @@ int toany(int a)
 	}
 
 }
+
 int judge(char *p, int choice)
 {
 	switch (choice)
@@ -212,6 +177,7 @@ int judge(char *p, int choice)
 
 	return 1;
 }
+
 int main(int argc, char* argv[])
 {
 	char num[100], hp[100];
@@ -253,12 +219,10 @@ int main(int argc, char* argv[])
 		printf("输入错误\n");
 		return 0;
 	}
-	//tonum
 	tennum = tonum(num, choice);
 	printf("---------------\n");
-	printf("%d",tennum);
+	printf("十进制为：%d",tennum);
 	printf("\n---------------\n");
-	//toany
 	toany(tennum);
 
 }
