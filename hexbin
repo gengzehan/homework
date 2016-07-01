@@ -126,6 +126,7 @@ int toany(int a)
     }
     printf("-----------------\n");
     num1=num3=0;
+    i=0;
     num2=a;
     do
     {
