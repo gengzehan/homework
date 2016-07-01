@@ -97,7 +97,7 @@ int tonum(char *p, int choice)
 }
 
 
-int toany(int a)
+void toany(int a)
 {
     int num1, num2,recorde[100], i = 0;
     char hex[100];
