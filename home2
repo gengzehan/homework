@@ -1,0 +1,161 @@
+#include<stdio.h>
+
+int choice(double *p,int way)
+{
+    
+}
+
+void cut(char *p)
+{
+    char a[3],i=0,j=0,flag=0;
+    double b[4],re,hp;
+    while(*p!='\0')
+    {
+        if(*p<'0'||*p>'9')
+        {
+            a[j]=*p;
+            p++;
+            j++;
+
+        }
+        else
+        {
+            if(*(++p)>='0'&&*p<='9')
+            {
+                b[i]=(*(--p)-48)*10+(*(++p)-48);
+                i++;
+            }
+            else
+            {
+                p--;
+                b[i]=(*p)-48;
+                i++;
+            }
+            p++;
+        }
+    }
+    //printf("***************\n");
+    //printf("%f\t%f\t%f\t%f",b[0],b[1],b[2],b[3]);
+    //printf("%c\t%c\t%c",a[0],a[1],a[2]);   2+3/3+1
+    for(i=0;i<3;i++)
+    {
+        if(a[i]=='/'||a[i]=='*')
+        {
+            flag=1;
+            switch(a[i])
+            {
+                case '*':re=b[i]*b[i+1];break;
+                case '/':re=b[i]/b[i+1];break;
+            }
+            if(i==0)
+            {
+                if(a[i+2]=='/'||a[i+2]=='*')
+                {
+                    switch(a[i+2])
+                    {
+                    case '*':hp=b[2]*b[3];break;
+                    case '/':hp=b[2]/b[3];break;
+                    }
+                    switch(a[1])
+                    {
+                    case '*':re=re*hp;break;
+                    case '/':re=re/hp;break;
+                    case '+':re=re+hp;break;
+                    case '-':re=re-hp;break;
+                    }
+                    break;
+                }
+                else
+                {
+                    switch(a[1])
+                    {
+                    case '*':re=re*b[2];break;
+                    case '/':re=re/b[2];break;
+                    case '+':re=re+b[2];break;
+                    case '-':re=re-b[2];break;
+                    }
+                    switch(a[1])
+                    {
+                    case '*':re=re*b[3];break;
+                    case '/':re=re/b[3];break;
+                    case '+':re=re+b[3];break;
+                    case '-':re=re-b[3];break;
+                    }
+                }
+
+            }
+            if(i!=0)
+            {
+                if(i==1)
+                 {
+
+                    if(a[2]=='/'||a[2]=='*')
+                    {
+                        switch(a[2])
+                        {
+                        case '*':re=re*b[3];break;
+                        case '/':re=re/b[3];break;
+                        }
+                        switch(a[0])
+                        {
+                            case '+':re=b[0]+re;break;
+                            case '-':re=b[0]-re;break;
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        switch(a[0])
+                        {
+                            case '+':re=re+b[0];break;
+                            case '-':re=re-b[0];break;
+                        }
+                        switch(a[2])
+                        {
+                            case '+':re=re+b[3];break;
+                            case '-':re=re-b[3];break;
+                        }
+                        break;
+                    }
+
+                 }
+                 if(i==2)
+                 {
+                     switch(a[1])
+                    {
+                        case '+':re=b[1]+re;break;
+                        case '-':re=b[1]-re;break;
+                    }
+                    switch(a[0])
+                    {
+                        case '+':re=b[0]+re;break;
+                        case '-':re=b[0]-re;break;
+                    }
+                    break;
+                 }
+            }
+
+        }
+    }
+    if(flag==0)
+    {
+        re=b[0];
+        for(i=0;i<3;i++)
+        {
+            switch(a[i])
+            {
+                case '+':re=b[i+1]+re;break;
+                case '-':re=re-b[i+1];break;
+            }
+        }
+    }
+    printf("%f",re);
+}
+
+
+int main()
+{
+    char str[30],i;
+    gets(str);
+    cut(str);
+}
