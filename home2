@@ -1,8 +1,17 @@
 #include<stdio.h>
 
-int choice(double *p,int way)
+int choice(char way,double a,double b)
 {
-    
+    int re;
+    switch(way)
+    {
+        case '+':re=a+b;break;
+        case '-':re=a-b;break;
+        case '*':re=a*b;break;
+        case '/':re=a/b;break;
+    }
+    return re;
+
 }
 
 void cut(char *p)
@@ -34,9 +43,7 @@ void cut(char *p)
             p++;
         }
     }
-    //printf("***************\n");
-    //printf("%f\t%f\t%f\t%f",b[0],b[1],b[2],b[3]);
-    //printf("%c\t%c\t%c",a[0],a[1],a[2]);   2+3/3+1
+
     for(i=0;i<3;i++)
     {
         if(a[i]=='/'||a[i]=='*')
@@ -51,36 +58,15 @@ void cut(char *p)
             {
                 if(a[i+2]=='/'||a[i+2]=='*')
                 {
-                    switch(a[i+2])
-                    {
-                    case '*':hp=b[2]*b[3];break;
-                    case '/':hp=b[2]/b[3];break;
-                    }
-                    switch(a[1])
-                    {
-                    case '*':re=re*hp;break;
-                    case '/':re=re/hp;break;
-                    case '+':re=re+hp;break;
-                    case '-':re=re-hp;break;
-                    }
+
+                    hp=choice(a[i+2],b[2],b[3]);
+                    re=choice(a[1],re,hp);
                     break;
                 }
                 else
                 {
-                    switch(a[1])
-                    {
-                    case '*':re=re*b[2];break;
-                    case '/':re=re/b[2];break;
-                    case '+':re=re+b[2];break;
-                    case '-':re=re-b[2];break;
-                    }
-                    switch(a[1])
-                    {
-                    case '*':re=re*b[3];break;
-                    case '/':re=re/b[3];break;
-                    case '+':re=re+b[3];break;
-                    case '-':re=re-b[3];break;
-                    }
+                    re=choice(a[1],re,b[2]);
+                    re=choice(a[2],re,b[3]);
                 }
 
             }
@@ -88,53 +74,26 @@ void cut(char *p)
             {
                 if(i==1)
                  {
-
                     if(a[2]=='/'||a[2]=='*')
                     {
-                        switch(a[2])
-                        {
-                        case '*':re=re*b[3];break;
-                        case '/':re=re/b[3];break;
-                        }
-                        switch(a[0])
-                        {
-                            case '+':re=b[0]+re;break;
-                            case '-':re=b[0]-re;break;
-                        }
+                        re=choice(a[2],re,b[3]);
+                        re=choice(a[0],b[0],re);
                         break;
                     }
                     else
                     {
-                        switch(a[0])
-                        {
-                            case '+':re=re+b[0];break;
-                            case '-':re=re-b[0];break;
-                        }
-                        switch(a[2])
-                        {
-                            case '+':re=re+b[3];break;
-                            case '-':re=re-b[3];break;
-                        }
+                        re=choice(a[0],b[0],re);
+                        re=choice(a[2],re,b[3]);
                         break;
                     }
-
                  }
                  if(i==2)
                  {
-                     switch(a[1])
-                    {
-                        case '+':re=b[1]+re;break;
-                        case '-':re=b[1]-re;break;
-                    }
-                    switch(a[0])
-                    {
-                        case '+':re=b[0]+re;break;
-                        case '-':re=b[0]-re;break;
-                    }
+                    hp=choice(a[0],b[0],b[1]);
+                    re=choice(a[1],hp,re);
                     break;
                  }
             }
-
         }
     }
     if(flag==0)
@@ -151,7 +110,6 @@ void cut(char *p)
     }
     printf("%f",re);
 }
-
 
 int main()
 {
