@@ -49,11 +49,7 @@ void cut(char *p)
         if(a[i]=='/'||a[i]=='*')
         {
             flag=1;
-            switch(a[i])
-            {
-                case '*':re=b[i]*b[i+1];break;
-                case '/':re=b[i]/b[i+1];break;
-            }
+            re=choice(a[i],b[i],b[i+1]);
             if(i==0)
             {
                 if(a[i+2]=='/'||a[i+2]=='*')
@@ -101,11 +97,7 @@ void cut(char *p)
         re=b[0];
         for(i=0;i<3;i++)
         {
-            switch(a[i])
-            {
-                case '+':re=b[i+1]+re;break;
-                case '-':re=re-b[i+1];break;
-            }
+            re=choice(a[i],re,b[i+1]);
         }
     }
     printf("%f",re);
