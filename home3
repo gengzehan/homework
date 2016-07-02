@@ -1,0 +1,35 @@
+#include<stdio.h>
+
+void toup(char p)
+{
+    printf("%c",p-32);
+}
+
+void find(char *p)
+{
+    if(*p>90)
+        toup(*p);
+    else
+        printf("%c",*p);
+    p++;
+    while(*p!='\0')
+    {
+        if(*p=='.'||*p==','||*p==' ')
+        {
+            printf("%c",*p++);
+            toup(*p);
+            p++;
+        }
+        else
+            printf("%c",*p++);
+
+    }
+}
+
+int main()
+{
+    char str[200];
+    printf("%d",'Z');
+    gets(str);
+    find(str);
+}
