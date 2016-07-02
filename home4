@@ -1,0 +1,36 @@
+#include<stdio.h>
+int i=0;
+void re(char *p)
+{
+    char *q;
+    while(*p!='\0')
+    {
+        i++;
+        p++;
+    }
+    printf("%d位数:",i);
+    tosun(q);
+    toni(--p);
+}
+
+void tosun(char *p)
+{
+    while(*p!='\0')
+        printf("%c,",*p++);
+    printf("\t;\t");
+}
+
+void toni(char *p)
+{
+    while((i--)>0)
+    {
+        printf("%c,",*p--);
+    }
+}
+
+int main()
+{
+    char p[50];
+    gets(p);
+    re(p);
+}
