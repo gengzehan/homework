@@ -3,10 +3,9 @@ int i=0;
 void re(char *p)
 {
     char *q;
-    while(*p!='\0')
+    while(*p++!='\0')
     {
         i++;
-        p++;
     }
     printf("%d位数:",i);
     tosun(q);
